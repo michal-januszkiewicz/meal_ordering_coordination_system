@@ -1,7 +1,8 @@
 angular.module('orderingSystem', [])
     .controller('mainCtrl', ['$scope',
         function($scope) {
-            $scope.orders = mockOrders();
+            $scope.allOrders = mockOrders();
+            $scope.currentOrders = $scope.allOrders.active;
         }
     ]);
 
