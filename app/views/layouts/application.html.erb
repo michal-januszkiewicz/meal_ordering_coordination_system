@@ -9,7 +9,39 @@
   <%= csrf_meta_tags %>
 </head>
 <body ng-app="orderingSystem" ng-controller="mainCtrl">
-  <div>
+<div class="container">
+  <div class="row orders">
+    <div class="col-md-4">
+      <div class="row">
+        <h4>Orders</h4>
+        <div class="col-md-2">
+          <a href="#" class="active-orders-link">Active</a>
+        </div>
+        <div class="col-md-2">
+          <a href="#" class="history-orders-link">History</a>
+        </div>
+      </div>
+      <div class="row">
+        <ul ng-repeat="order in currentOrders" class="orders-list">
+          <li class="order-item">{{ order.restaurant }} - {{ order.status }}</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="row table-header">
+        <div class="col-md-2">User</div>
+        <div class="col-md-2">Meal</div>
+        <div class="col-md-2">Price</div>
+      </div>
+      <div ng-repeat="meal in currentOrder.meals" class="meals-list">
+        <div class="row">
+          <div class="col-md-2 meal-item">{{ meal.user }}</div>
+          <div class="col-md-2 meal-item">{{ meal.name }}</div>
+          <div class="col-md-2 meal-item">{{ meal.price }}</div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 </body>
 </html>
