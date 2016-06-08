@@ -14,8 +14,8 @@
       <div class="row">
         <h3>Orders</h3>
         <ul class="nav nav-tabs" role="tablist">
-          <li class="active"><a href="#">Active</a></li>
-          <li><a href="#">History</a></li>
+          <li ng-click="toggleOrdersTabs('active')" ng-class="{'active': ordersTabType == 'active'}"><a href="#">Active</a></li>
+          <li ng-click="toggleOrdersTabs('history')" ng-class="{'active': ordersTabType == 'history'}"><a href="#">History</a></li>
         </ul>
       </div>
       <div class="row">

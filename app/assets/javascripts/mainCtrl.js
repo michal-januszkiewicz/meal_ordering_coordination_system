@@ -4,6 +4,15 @@ angular.module('orderingSystem', [])
             $scope.allOrders = mockOrders();
             $scope.currentOrders = $scope.allOrders.active;
             $scope.currentOrder = $scope.currentOrders[1];
+
+            // Display active orders tab in the beginning.
+            $scope.ordersTabType = 'active';
+
+            // Toggle between active and history orders.
+            $scope.toggleOrdersTabs = function(type) {
+                $scope.currentOrders = $scope.allOrders[type];
+                $scope.ordersTabType = type;
+            }
         }
     ]);
 
@@ -38,7 +47,7 @@ function mockOrders() {
                             {user: 'user3', name: 'meal3', price: '13.00'},
                         ]},
                 ],
-                finalized : [
+                history : [
                     {
                         restaurant: 'restaurant2',
                         status: 'finalized',
