@@ -3,6 +3,7 @@ angular.module('orderingSystem', [])
         function($scope) {
             $scope.allOrders = mockOrders();
             $scope.currentOrders = $scope.allOrders.active;
+            $scope.currentOrder = $scope.currentOrders[1];
         }
     ]);
 
