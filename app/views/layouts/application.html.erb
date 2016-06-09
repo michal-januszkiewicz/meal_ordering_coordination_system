@@ -28,6 +28,13 @@
     </div>
     <div class="col-md-8 col-md-offset-1">
       <h3>List of meals</h3>
+      <form ng-submit="addNewMeal()" ng-show="showAddMealOption()">
+        <!--Temporary field untile there is user authentication implemented.-->
+        <input ng-model="newMeal.user_id" placeholder="user_id">
+        <input ng-model="newMeal.name" placeholder="meal">
+        <input ng-model="newMeal.price" placeholder="price">
+        <input type="submit" value="Add meal">
+      </form>
       <table class="table table-hover">
         <thead>
         <tr>
@@ -38,7 +45,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="meal in currentOrder.meals">
-          <td>{{ meal.user }}</td>
+          <td>{{ users[meal.user_id].name }}</td>
           <td>{{ meal.name }}</td>
           <td>{{ meal.price }}</td>
         </tr>

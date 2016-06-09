@@ -1,7 +1,13 @@
-angular.module('orderingSystem', []).controller('mainCtrl', function($scope, Order) {
+angular.module('orderingSystem', []).controller('mainCtrl', function($scope, Order, User) {
         $scope.allOrders = Order.index();
+        $scope.users = User.index();
         $scope.currentOrders = $scope.allOrders.active;
         $scope.currentOrder = $scope.currentOrders[1];
+        $scope.newMeal = {
+            user_id: '',
+            name: '',
+            price: '',
+        };
 
         // Display active orders tab in the beginning.
         $scope.ordersTabType = 'active';
@@ -16,5 +22,14 @@ angular.module('orderingSystem', []).controller('mainCtrl', function($scope, Ord
         $scope.changeCurrentOrder = function(orderID) {
             $scope.currentOrder = $scope.currentOrders[orderID];
         };
+
+        $scope.addNewMeal = function() {
+            $scope.currentOrder.meals.push($scope.newMeal);
+        };
+    
+        $scope.showAddMealOption = function() {
+            return $scope.currentOrder.status == 'in progress';
+        }
     }
 );
+
