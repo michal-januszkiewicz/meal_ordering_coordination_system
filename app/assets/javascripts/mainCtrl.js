@@ -2,7 +2,7 @@ angular.module('orderingSystem', []).controller('mainCtrl', function($scope, Ord
         $scope.allOrders = Order.index();
         $scope.users = User.index();
         $scope.currentOrders = $scope.allOrders.active;
-        $scope.currentOrder = $scope.currentOrders[1];
+        $scope.currentOrder = '';
         $scope.newMeal = {
             user_id: '',
             name: '',
@@ -28,7 +28,7 @@ angular.module('orderingSystem', []).controller('mainCtrl', function($scope, Ord
         };
     
         $scope.showAddMealOption = function() {
-            return $scope.currentOrder.status == 'in progress';
+            return $scope.currentOrder.status == 'in progress' && $scope.currentOrder != '';
         }
     }
 );
