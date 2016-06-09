@@ -13,6 +13,14 @@
     <div class="col-md-3">
       <div class="row">
         <h3>Orders</h3>
+        <form ng-submit="addNewOrder()" ng-show="showAddOrderOption()">
+          <!--Temporary field until there is user authentication implemented.-->
+          <input ng-model="newOrder.order_id" placeholder="order_id">
+          <!--Temporary field until there is user authentication implemented.-->
+          <input ng-model="newOrder.user_id" placeholder="user_id">
+          <input ng-model="newOrder.restaurant" placeholder="restaurant">
+          <input type="submit" value="Add order">
+        </form>
         <ul class="nav nav-tabs" role="tablist">
           <li ng-click="toggleOrdersTabs('active')" ng-class="{'active': ordersTabType == 'active'}"><a href="#">Active</a></li>
           <li ng-click="toggleOrdersTabs('history')" ng-class="{'active': ordersTabType == 'history'}"><a href="#">History</a></li>
@@ -30,7 +38,7 @@
     <div class="col-md-8 col-md-offset-1">
       <h3>List of meals</h3>
       <form ng-submit="addNewMeal()" ng-show="showAddMealOption()">
-        <!--Temporary field untile there is user authentication implemented.-->
+        <!--Temporary field until there is user authentication implemented.-->
         <input ng-model="newMeal.user_id" placeholder="user_id">
         <input ng-model="newMeal.name" placeholder="meal">
         <input ng-model="newMeal.price" placeholder="price">

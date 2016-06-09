@@ -8,6 +8,11 @@ angular.module('orderingSystem', []).controller('mainCtrl', function($scope, Ord
             name: '',
             price: '',
         };
+        $scope.newOrder = {
+            restaurant: '',
+            status: 'in progress',
+            meals: [],
+        };
 
         // Display active orders tab in the beginning.
         $scope.ordersTabType = 'active';
@@ -29,7 +34,16 @@ angular.module('orderingSystem', []).controller('mainCtrl', function($scope, Ord
     
         $scope.showAddMealOption = function() {
             return $scope.currentOrder.status == 'in progress' && $scope.currentOrder != '';
-        }
+        };
+
+        $scope.showAddOrderOption = function() {
+            return $scope.ordersTabType == 'active';
+        };
+    
+        $scope.addNewOrder = function() {
+            console.log($scope.newOrder);
+            $scope.currentOrders[$scope.newOrder.order_id] = $scope.newOrder;
+        };
     }
 );
 
