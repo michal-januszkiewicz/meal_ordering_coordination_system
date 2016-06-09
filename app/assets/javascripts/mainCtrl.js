@@ -21,6 +21,7 @@ angular.module('orderingSystem', []).controller('mainCtrl', function($scope, Ord
         $scope.toggleOrdersTabs = function(type) {
             $scope.currentOrders = $scope.allOrders[type];
             $scope.ordersTabType = type;
+            $scope.currentOrder = '';
         };
 
         // Display order chosen from the list.
