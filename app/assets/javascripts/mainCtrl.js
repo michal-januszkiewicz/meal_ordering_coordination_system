@@ -10,6 +10,11 @@ angular.module('orderingSystem', []).controller('mainCtrl', function($scope, Ord
         $scope.toggleOrdersTabs = function(type) {
             $scope.currentOrders = $scope.allOrders[type];
             $scope.ordersTabType = type;
-        }
+        };
+
+        // Display order chosen from the list.
+        $scope.changeCurrentOrder = function(orderID) {
+            $scope.currentOrder = $scope.currentOrders[orderID];
+        };
     }
 );

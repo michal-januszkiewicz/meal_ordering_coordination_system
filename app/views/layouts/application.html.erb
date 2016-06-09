@@ -20,7 +20,7 @@
       </div>
       <div class="row">
         <div class="list-group orders-list">
-          <a href="#" ng-repeat="order in currentOrders" class="list-group-item order-item">
+          <a href="#" ng-repeat="(orderID, order) in currentOrders" ng-click="changeCurrentOrder(orderID)" class="list-group-item order-item">
             {{ order.restaurant }} - {{ order.status }}
           </a>
         </div>
