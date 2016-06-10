@@ -3,65 +3,14 @@
 <head>
   <title>MealOrderingCoordinationSystem</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
-<body ng-app="orderingSystem" ng-controller="mainCtrl">
+<body ng-app="orderingSystem">
 <div class="container">
-  <div class="row orders">
-    <div class="col-md-3">
-      <div class="row">
-        <h3>Orders</h3>
-        <form ng-submit="addNewOrder()" ng-show="showAddOrderOption()">
-          <!--Temporary field until there is user authentication implemented.-->
-          <input ng-model="newOrder.order_id" placeholder="order_id">
-          <!--Temporary field until there is user authentication implemented.-->
-          <input ng-model="newOrder.user_id" placeholder="user_id">
-          <input ng-model="newOrder.restaurant" placeholder="restaurant">
-          <input type="submit" value="Add order">
-        </form>
-        <ul class="nav nav-tabs" role="tablist">
-          <li ng-click="toggleOrdersTabs('active')" ng-class="{'active': ordersTabType == 'active'}"><a href="#">Active</a></li>
-          <li ng-click="toggleOrdersTabs('history')" ng-class="{'active': ordersTabType == 'history'}"><a href="#">History</a></li>
-        </ul>
-      </div>
-      <div class="row">
-        <div class="list-group orders-list">
-          <a href="#" ng-repeat="(order_id, order) in currentOrders" ng-click="changeCurrentOrder(order_id)"
-             ng-class="{'active':  currentOrder == order}" class="list-group-item order-item">
-            {{ order.restaurant }} - {{ order.status }}
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-8 col-md-offset-1">
-      <h3>List of meals</h3>
-      <form ng-submit="addNewMeal()" ng-show="showAddMealOption()">
-        <!--Temporary field until there is user authentication implemented.-->
-        <input ng-model="newMeal.user_id" placeholder="user_id">
-        <input ng-model="newMeal.name" placeholder="meal">
-        <input ng-model="newMeal.price" placeholder="price">
-        <input type="submit" value="Add meal">
-      </form>
-      <table class="table table-hover">
-        <thead>
-        <tr>
-          <th>User</th>
-          <th>Meal</th>
-          <th>Price</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="meal in currentOrder.meals">
-          <td>{{ users[meal.user_id].name }}</td>
-          <td>{{ meal.name }}</td>
-          <td>{{ meal.price }}</td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <ui-view></ui-view>
 </div>
 </body>
 </html>
