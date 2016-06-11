@@ -1,13 +1,31 @@
 angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order, User) {
     $scope.users = {};
+    $scope.allOrders = {};
+
     User.index()
         .success(function(users) {
             users.forEach(function(user) {
                 $scope.users[user.id] = user;
             });
         });
-    $scope.allOrders = Order.index();
-    $scope.currentOrders = $scope.allOrders.active;
+
+    Order.index()
+        .success(function(orders) {
+            orders.forEach(function(order) {
+                $scope.allOrders[order.id] = order;
+            });
+        });
+
+    function onOrderCreateSuccess(order) {
+        $scope.currentOrders[order.data.id] = order.data;
+    }
+
+    function onOrderCreateError(error) {
+        // Display error.
+    }
+
+    // $scope.currentOrders = $scope.allOrders.active;
+    $scope.currentOrders = $scope.allOrders;
     $scope.currentOrder = '';
     $scope.newMeal = {
         user_id: '',
@@ -16,8 +34,6 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     };
     $scope.newOrder = {
         restaurant: '',
-        status: 'in progress',
-        meals: [],
     };
 
     // Display active orders tab in the beginning.
@@ -48,7 +64,6 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     };
 
     $scope.addNewOrder = function() {
-        console.log($scope.newOrder);
-        $scope.currentOrders[$scope.newOrder.order_id] = $scope.newOrder;
+        Order.create($scope.newOrder).then(onOrderCreateSuccess, onOrderCreateError);
     };
 });
