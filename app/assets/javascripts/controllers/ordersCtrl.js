@@ -1,6 +1,12 @@
 angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order, User) {
+    $scope.users = {};
+    User.index()
+        .success(function(users) {
+            users.forEach(function(user) {
+                $scope.users[user.id] = user;
+            });
+        });
     $scope.allOrders = Order.index();
-    $scope.users = User.index();
     $scope.currentOrders = $scope.allOrders.active;
     $scope.currentOrder = '';
     $scope.newMeal = {

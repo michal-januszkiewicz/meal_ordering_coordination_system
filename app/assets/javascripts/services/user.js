@@ -1,9 +1,7 @@
-angular.module('orderingSystem').service('User', function() {
+angular.module('orderingSystem').service('User', function($http) {
+    var api_endpoint = "/api/v1/users";
     this.index = function () {
-        return {
-            1: { name: 'user1' },
-            2: { name: 'user2' },
-            3: { name: 'user3' },
-        }
-    }
+        return $http.get(api_endpoint);
+    };
+    return this;
 });
