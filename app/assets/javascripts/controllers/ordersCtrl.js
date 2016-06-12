@@ -60,6 +60,10 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     $scope.editOrder = function(order_id) {
         Order.update(order_id, $scope.currentOrder).then(onOrderEditSuccess, onOrderEditError);
     };
+
+    $scope.destroyOrder = function(order_id) {
+        Order.destroy(order_id).then(onOrderDestroySuccess, onOrderDestroyError);
+    };
     
     function getUsers() {
         User.index()
@@ -94,6 +98,15 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     }
 
     function onOrderEditError(error) {
+        // Display error.
+    }
+
+    function onOrderDestroySuccess(response) {
+        getOrders($scope.ordersTabType);
+        $scope.currentOrders = $scope.allOrders[$scope.ordersTabType];
+    }
+
+    function onOrderDestroyError(error) {
         // Display error.
     }
 

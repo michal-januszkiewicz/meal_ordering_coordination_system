@@ -16,7 +16,9 @@
                 <div>
                     <a href="#" ng-repeat="(order_id, order) in currentOrders" ng-click="changeCurrentOrder(order_id)"
                        ng-class="{'active':  currentOrder == order}" class="list-group-item order-item">
-                        {{ order.restaurant }} - {{ order.status }} <div ng-click="showEditOrderOption()" class="btn btn-primary btn-xs">edit</div>
+                        {{ order.restaurant }} - {{ order.status }}
+                        <div ng-click="showEditOrderOption()" class="btn btn-primary btn-xs">edit</div>
+                        <div ng-click="destroyOrder(order_id)" class="btn btn-primary btn-xs">delete</div>
                     </a>
                     <form ng-submit="editOrder(currentOrder.id)" ng-show="editOrderClicked">
                         <input ng-model="currentOrder.restaurant" placeholder="restaurant">

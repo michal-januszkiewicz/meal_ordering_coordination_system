@@ -22,7 +22,13 @@ class Api::V1::OrdersController < Api::V1::BaseController
   def update
     order = Order.find(params[:id])
     order.update_attributes(update_params)
-    render json: ::V1::OrderRepresenter.new(order).basic, status: 201
+    render json: ::V1::OrderRepresenter.new(order).basic, status: 200
+  end
+
+  def destroy
+    order = Order.find(params[:id])
+    order.destroy!
+    render json: { status: 200 }
   end
 
 
