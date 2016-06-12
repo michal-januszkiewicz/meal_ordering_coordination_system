@@ -3,10 +3,6 @@
         <div class="row">
             <h3>Orders</h3>
             <form ng-submit="addNewOrder()" ng-show="showAddOrderOption()">
-                <!--Temporary field until there is user authentication implemented.-->
-                <input ng-model="newOrder.order_id" placeholder="order_id">
-                <!--Temporary field until there is user authentication implemented.-->
-                <input ng-model="newOrder.user_id" placeholder="user_id">
                 <input ng-model="newOrder.restaurant" placeholder="restaurant">
                 <input type="submit" value="Add order">
             </form>
