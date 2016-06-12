@@ -11,6 +11,10 @@ angular.module('orderingSystem').service('Order', function($http) {
     this.create = function(params) {
         return $http.post(api_endpoint, params);
     };
+
+    this.update = function(id, params) {
+        return $http.put(api_endpoint + '/' + id, params)
+    };
     
     return this;
 });

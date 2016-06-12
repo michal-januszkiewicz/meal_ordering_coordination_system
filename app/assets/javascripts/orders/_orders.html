@@ -13,10 +13,22 @@
         </div>
         <div class="row">
             <div class="list-group orders-list">
-                <a href="#" ng-repeat="(order_id, order) in currentOrders" ng-click="changeCurrentOrder(order_id)"
-                   ng-class="{'active':  currentOrder == order}" class="list-group-item order-item">
-                    {{ order.restaurant }} - {{ order.status }}
-                </a>
+                <div>
+                    <a href="#" ng-repeat="(order_id, order) in currentOrders" ng-click="changeCurrentOrder(order_id)"
+                       ng-class="{'active':  currentOrder == order}" class="list-group-item order-item">
+                        {{ order.restaurant }} - {{ order.status }} <div ng-click="showEditOrderOption()" class="btn btn-primary btn-xs">edit</div>
+                    </a>
+                    <form ng-submit="editOrder(currentOrder.id)" ng-show="editOrderClicked">
+                        <input ng-model="currentOrder.restaurant" placeholder="restaurant">
+                        <select ng-model="currentOrder.status" name="status">
+                            <option value="in progress">in progress</option>
+                            <option value="ordered">ordered</option>
+                            <option value="delivered">delivered</option>
+                            <option value="finalized">finalized</option>
+                        </select>
+                        <input type="submit" value="Update">
+                    </form>
+                </div>
             </div>
         </div>
     </div>

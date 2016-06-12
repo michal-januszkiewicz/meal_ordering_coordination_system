@@ -19,6 +19,13 @@ class Api::V1::OrdersController < Api::V1::BaseController
     render json: ::V1::OrderRepresenter.new(order).basic, status: 201
   end
 
+  def update
+    order = Order.find(params[:id])
+    order.update_attributes(update_params)
+    render json: ::V1::OrderRepresenter.new(order).basic, status: 201
+  end
+
+
   private
 
   def order_params
@@ -27,5 +34,9 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   def index_params
     params.permit(:type)
+  end
+
+  def update_params
+    params.permit(:restaurant, :status)
   end
 end

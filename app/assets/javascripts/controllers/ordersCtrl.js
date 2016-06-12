@@ -13,6 +13,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         restaurant: '',
     };
     $scope.currentOrder = '';
+    $scope.editOrderClicked = false;
     
     getUsers();
     getOrders('active');
@@ -52,6 +53,14 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         Order.create($scope.newOrder).then(onOrderCreateSuccess, onOrderCreateError);
     };
     
+    $scope.showEditOrderOption = function() {
+        $scope.editOrderClicked = true;
+    };
+
+    $scope.editOrder = function(order_id) {
+        Order.update(order_id, $scope.currentOrder).then(onOrderEditSuccess, onOrderEditError);
+    };
+    
     function getUsers() {
         User.index()
             .success(function(users) {
@@ -76,6 +85,15 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     }
 
     function onOrderCreateError(error) {
+        // Display error.
+    }
+    
+    function onOrderEditSuccess(order) {
+        $scope.currentOrders[order.data.id] = order.data;
+        $scope.currentOrder = order.data;
+    }
+
+    function onOrderEditError(error) {
         // Display error.
     }
 
