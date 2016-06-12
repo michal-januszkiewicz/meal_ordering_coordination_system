@@ -1,20 +1,31 @@
 angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order, User) {
     $scope.users = {};
-    $scope.allOrders = {};
+    $scope.allOrders = {
+        active: {},
+        history: {},
+    };
+    
+    getUsers();
+    getOrders('active');
 
-    User.index()
-        .success(function(users) {
-            users.forEach(function(user) {
-                $scope.users[user.id] = user;
+    function getUsers() {
+        User.index()
+            .success(function(users) {
+                users.forEach(function(user) {
+                    $scope.users[user.id] = user;
+                });
             });
-        });
+    }
 
-    Order.index()
-        .success(function(orders) {
-            orders.forEach(function(order) {
-                $scope.allOrders[order.id] = order;
+    function getOrders(type) {
+        $scope.allOrders[type] = {};
+        Order.index({type: type})
+            .success(function(orders) {
+                orders.forEach(function(order) {
+                    $scope.allOrders[type][order.id] = order;
+                });
             });
-        });
+    }
 
     function onOrderCreateSuccess(order) {
         $scope.currentOrders[order.data.id] = order.data;
@@ -24,8 +35,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         // Display error.
     }
 
-    // $scope.currentOrders = $scope.allOrders.active;
-    $scope.currentOrders = $scope.allOrders;
+    $scope.currentOrders = $scope.allOrders.active;
     $scope.currentOrder = '';
     $scope.newMeal = {
         user_id: '',
@@ -41,6 +51,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
 
     // Toggle between active and history orders.
     $scope.toggleOrdersTabs = function(type) {
+        getOrders(type);
         $scope.currentOrders = $scope.allOrders[type];
         $scope.ordersTabType = type;
         $scope.currentOrder = '';

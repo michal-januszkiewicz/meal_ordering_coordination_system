@@ -4,7 +4,12 @@ class Api::V1::OrdersController < Api::V1::BaseController
     orders = orders.map do |order|
       ::V1::OrderRepresenter.new(order).basic
     end
-    render json: orders
+    active, history = orders.partition{|order| order[:status] == 'in progress'}
+    orders = {
+        active: active,
+        history: history,
+    }
+    render json: orders[index_params[:type].to_sym]
   end
 
   def create
@@ -18,5 +23,9 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   def order_params
     params.permit(:restaurant)
+  end
+
+  def index_params
+    params.permit(:type)
   end
 end
