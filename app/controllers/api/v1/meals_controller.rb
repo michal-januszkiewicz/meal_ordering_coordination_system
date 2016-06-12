@@ -1,7 +1,7 @@
 class Api::V1::MealsController < Api::V1::BaseController
   
   def create
-    order_id = meal_params[:order_id]
+    order_id = params[:order_id]
     meal = Order.find(order_id).meals.build(meal_params)
     meal.user_id = current_user.id
     meal.save!
@@ -11,6 +11,6 @@ class Api::V1::MealsController < Api::V1::BaseController
   private
 
   def meal_params
-    params.permit(:order_id, :name, :price)
+    params.permit(:name, :price)
   end
 end
