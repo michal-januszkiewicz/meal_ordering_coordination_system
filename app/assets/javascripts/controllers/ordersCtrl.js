@@ -1,4 +1,4 @@
-angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order, User) {
+angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order, User, Meal) {
     $scope.users = {};
     $scope.allOrders = {
         active: {},
@@ -34,11 +34,19 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     function onOrderCreateError(error) {
         // Display error.
     }
+    
+    function onMealCreateSuccess(meal) {
+        $scope.currentOrder.meals.push(meal.data);
+    }
+
+    function onMealCreateError(error) {
+        // Display error.
+    }
 
     $scope.currentOrders = $scope.allOrders.active;
     $scope.currentOrder = '';
     $scope.newMeal = {
-        user_id: '',
+        order_id: '',
         name: '',
         price: '',
     };
@@ -63,7 +71,8 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     };
 
     $scope.addNewMeal = function() {
-        $scope.currentOrder.meals.push($scope.newMeal);
+        $scope.newMeal.order_id = $scope.currentOrder.id;
+        Meal.create($scope.newMeal).then(onMealCreateSuccess, onMealCreateError);
     };
 
     $scope.showAddMealOption = function() {

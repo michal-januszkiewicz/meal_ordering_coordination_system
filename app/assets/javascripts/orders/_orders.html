@@ -24,7 +24,6 @@
         <h3>List of meals</h3>
         <form ng-submit="addNewMeal()" ng-show="showAddMealOption()">
             <!--Temporary field until there is user authentication implemented.-->
-            <input ng-model="newMeal.user_id" placeholder="user_id">
             <input ng-model="newMeal.name" placeholder="meal">
             <input ng-model="newMeal.price" placeholder="price">
             <input type="submit" value="Add meal">
