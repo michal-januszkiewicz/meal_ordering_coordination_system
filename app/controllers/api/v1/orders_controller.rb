@@ -4,7 +4,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
     orders = orders.map do |order|
       ::V1::OrderRepresenter.new(order).basic
     end
-    active, history = orders.partition{|order| order[:status] == 'in progress'}
+    history, active = orders.partition{|order| order[:status] == 'finalized'}
     orders = {
         active: active,
         history: history,
