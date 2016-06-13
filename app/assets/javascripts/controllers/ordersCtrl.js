@@ -19,7 +19,6 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     getUsers();
     getOrders('active');
 
-    $scope.currentOrders = $scope.allOrders.active;
 
     // Display active orders tab in the beginning.
     $scope.ordersTabType = 'active';
@@ -27,7 +26,6 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     // Toggle between active and history orders.
     $scope.toggleOrdersTabs = function(type) {
         getOrders(type);
-        $scope.currentOrders = $scope.allOrders[type];
         $scope.ordersTabType = type;
         $scope.currentOrder = '';
     };
@@ -112,6 +110,8 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
                 orders.forEach(function(order) {
                     $scope.allOrders[type][order.id] = order;
                 });
+                $scope.currentOrders = $scope.allOrders[type];
+                setDefaultOrder();
             });
     }
 
@@ -123,6 +123,13 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
                     $scope.currentOrder.meals[meal.id] = meal;
                 });
             });
+    }
+
+    function setDefaultOrder() {
+        var key = Object.keys($scope.currentOrders)[0];
+        if (key !== undefined) {
+            $scope.changeCurrentOrder(key);
+        }
     }
 
     function onOrderCreateSuccess(order) {
