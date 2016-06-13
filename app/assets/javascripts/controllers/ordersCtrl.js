@@ -35,6 +35,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     // Display order chosen from the list.
     $scope.changeCurrentOrder = function(orderID) {
         $scope.currentOrder = $scope.currentOrders[orderID];
+        getMeals();
     };
 
     $scope.addNewMeal = function() {
@@ -96,15 +97,9 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
 
     function getOrders(type) {
         $scope.allOrders[type] = {};
-        var meals = {};
         Order.index({type: type})
             .success(function(orders) {
                 orders.forEach(function(order) {
-                    order.meals.forEach(function(meal) {
-                        meals[meal.id] = meal;
-                    });
-                    order.meals = meals;
-                    meals = {};
                     $scope.allOrders[type][order.id] = order;
                 });
             });

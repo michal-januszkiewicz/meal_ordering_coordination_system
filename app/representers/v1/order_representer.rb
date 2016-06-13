@@ -9,7 +9,6 @@ class V1::OrderRepresenter
         restaurant: @order.restaurant,
         status: @order.status,
         user_id: @order.user_id,
-        meals: @order.meals,
     }
   end
 end
