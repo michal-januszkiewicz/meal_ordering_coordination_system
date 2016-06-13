@@ -43,7 +43,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         Meal.create($scope.currentOrder.id, $scope.newMeal).then(onMealCreateSuccess, onMealCreateError);
     };
 
-    $scope.showAddMealOption = function() {
+    $scope.showAddMealForm = function() {
         return $scope.currentOrder.status == 'in progress' && $scope.currentOrder != '';
     };
 
