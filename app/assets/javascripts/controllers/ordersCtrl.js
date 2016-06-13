@@ -5,7 +5,6 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         history: {},
     };
     $scope.newMeal = {
-        order_id: '',
         name: '',
         price: '',
     };
@@ -37,8 +36,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     };
 
     $scope.addNewMeal = function() {
-        $scope.newMeal.order_id = $scope.currentOrder.id;
-        Meal.create($scope.newMeal).then(onMealCreateSuccess, onMealCreateError);
+        Meal.create($scope.currentOrder.id, $scope.newMeal).then(onMealCreateSuccess, onMealCreateError);
     };
 
     $scope.showAddMealOption = function() {
