@@ -26,6 +26,13 @@ class Api::V1::MealsController < Api::V1::BaseController
     end
   end
 
+  def destroy
+    order = Order.find(params[:order_id])
+    meal = order.meals.find(params[:id])
+    meal.destroy!
+    render json: { status: 200 }
+  end
+
   private
 
   def meal_params

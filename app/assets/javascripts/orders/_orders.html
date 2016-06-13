@@ -60,7 +60,7 @@
                 </form>
                 <td>
                     <div ng-hide="editMealClicked" ng-click="toggleMealEditForm(meal)" class="btn btn-primary btn-xs">edit</div>
-                    <div ng-hide="editMealClicked" ng-click="deleteMeal()" class="btn btn-primary btn-xs">delete</div>
+                    <div ng-hide="editMealClicked" ng-click="destroyMeal(meal.id)" class="btn btn-primary btn-xs">delete</div>
                     <div ng-show="showMealEditForm(meal)" ng-click="editMeal(meal.id)" class="btn btn-primary btn-xs">save</div>
                     <div ng-show="showMealEditForm(meal)" ng-click="toggleMealEditForm(meal)" class="btn btn-primary btn-xs">cancel</div>
                 </td>

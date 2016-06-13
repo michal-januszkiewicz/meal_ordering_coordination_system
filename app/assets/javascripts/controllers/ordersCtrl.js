@@ -60,6 +60,10 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         Meal.update($scope.currentOrder.id, meal_id, $scope.currentMeal).then(onMealEditSuccess, onMealEditError);
         $scope.editMealClicked = false;
     };
+    
+    $scope.destroyMeal = function(meal_id) {
+        Meal.destroy($scope.currentOrder.id, meal_id).then(onMealDestroySuccess, onMealDestroyError);
+    };
 
     $scope.showAddOrderOption = function() {
         return $scope.ordersTabType == 'active';
@@ -155,6 +159,14 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     }
 
     function onMealEditError(error) {
+        // Display error.
+    }
+
+    function onMealDestroySuccess(response) {
+        getMeals();
+    }
+
+    function onMealDestroyError(error) {
         // Display error.
     }
 });

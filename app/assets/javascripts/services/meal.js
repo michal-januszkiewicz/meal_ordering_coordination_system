@@ -12,4 +12,8 @@ angular.module('orderingSystem').service('Meal', function($http) {
     this.update = function(order_id, id, params) {
         return $http.put(api_endpoint + order_id + '/meals/' + id, params);
     };
+
+    this.destroy = function(order_id, id) {
+        return $http.delete(api_endpoint + order_id + '/meals/' + id);
+    }
 });
