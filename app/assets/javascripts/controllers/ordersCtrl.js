@@ -133,7 +133,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     }
 
     function onMealCreateSuccess(meal) {
-        $scope.currentOrder.meals.push(meal.data);
+        $scope.currentOrder.meals[meal.data.id] = meal.data;
     }
 
     function onMealCreateError(error) {
