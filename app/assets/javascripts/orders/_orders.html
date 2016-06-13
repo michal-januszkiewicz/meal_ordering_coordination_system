@@ -17,24 +17,44 @@
                     <a href="#" ng-repeat="(order_id, order) in currentOrders" ng-click="changeCurrentOrder(order_id)"
                        ng-class="{'active':  currentOrder == order}" class="list-group-item order-item">
                         {{ order.restaurant }} - {{ order.status }}
-                        <div ng-click="showEditOrderOption()" class="btn btn-primary btn-xs">edit</div>
-                        <div ng-click="destroyOrder(order_id)" class="btn btn-primary btn-xs">delete</div>
                     </a>
-                    <form ng-submit="editOrder(currentOrder.id)" ng-show="editOrderClicked">
-                        <input ng-model="currentOrder.restaurant" placeholder="restaurant">
-                        <select ng-model="currentOrder.status" name="status">
-                            <option value="in progress">in progress</option>
-                            <option value="ordered">ordered</option>
-                            <option value="delivered">delivered</option>
-                            <option value="finalized">finalized</option>
-                        </select>
-                        <input type="submit" value="Update">
-                    </form>
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-8 col-md-offset-1">
+        <div class="order">
+            <h1>Order</h1>
+        </div>
+        <div class="row">
+            <div ng-hide="editOrderClicked" class="order-show">
+                <div class="col-md-6">Restaurant: {{ currentOrder.restaurant }}</div>
+                <div class="col-md-3">Status: {{ currentOrder.status }}</div>
+                <div class="col-md-2">
+                    <div ng-click="toggleEditOrderForm()" class="btn btn-primary btn-xs">edit</div>
+                    <div ng-click="destroyOrder()" class="btn btn-primary btn-xs">delete</div>
+                </div>
+            </div>
+            <div ng-show="editOrderClicked" class="order-edit">
+                <form ng-submit="editOrder()" ng-show="editOrderClicked">
+                    <div class="col-md-6">Restaurant:
+                        <input ng-model="currentOrderEdit.restaurant" placeholder="restaurant">
+                    </div>
+                    <div class="col-md-3">Status:
+                        <select ng-model="currentOrderEdit.status" name="status">
+                            <option value="in progress">in progress</option>
+                            <option value="ordered">ordered</option>
+                            <option value="delivered">delivered</option>
+                            <option value="finalized">finalized</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <input class="btn btn-primary btn-xs" type="submit" value="update">
+                        <div ng-click="toggleEditOrderForm()" class="btn btn-primary btn-xs">cancel</div>
+                    </div>
+                </form>
+            </div>
+        </div>
         <h3>List of meals</h3>
         <form ng-submit="addNewMeal()" ng-show="showAddMealOption()">
             <input ng-model="newMeal.name" placeholder="meal">

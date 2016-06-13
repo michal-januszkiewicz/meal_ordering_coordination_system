@@ -12,7 +12,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         restaurant: '',
     };
     $scope.currentMeal = {};
-    $scope.currentOrder = '';
+    $scope.currentOrder = {};
     $scope.editOrderClicked = false;
     $scope.editMealClicked = false;
     
@@ -35,6 +35,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     // Display order chosen from the list.
     $scope.changeCurrentOrder = function(orderID) {
         $scope.currentOrder = $scope.currentOrders[orderID];
+        $scope.editOrderClicked = false;
         getMeals();
     };
 
@@ -74,16 +75,25 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         Order.create($scope.newOrder).then(onOrderCreateSuccess, onOrderCreateError);
     };
     
-    $scope.showEditOrderOption = function() {
-        $scope.editOrderClicked = true;
+    $scope.toggleEditOrderForm = function() {
+        $scope.editOrderClicked = !$scope.editOrderClicked;
+        if ($scope.editOrderClicked) {
+            // Clone current order to use a clone for editing.
+            $scope.currentOrderEdit = {
+                id: $scope.currentOrder.id,
+                restaurant: $scope.currentOrder.restaurant,
+                status: $scope.currentOrder.status,
+                user_id: $scope.currentOrder.user_id,
+            }
+        }
     };
 
-    $scope.editOrder = function(order_id) {
-        Order.update(order_id, $scope.currentOrder).then(onOrderEditSuccess, onOrderEditError);
+    $scope.editOrder = function() {
+        Order.update($scope.currentOrderEdit).then(onOrderEditSuccess, onOrderEditError);
     };
 
-    $scope.destroyOrder = function(order_id) {
-        Order.destroy(order_id).then(onOrderDestroySuccess, onOrderDestroyError);
+    $scope.destroyOrder = function() {
+        Order.destroy($scope.currentOrder.id).then(onOrderDestroySuccess, onOrderDestroyError);
     };
     
     function getUsers() {
@@ -126,6 +136,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     function onOrderEditSuccess(order) {
         $scope.currentOrders[order.data.id] = order.data;
         $scope.currentOrder = order.data;
+        getMeals();
     }
 
     function onOrderEditError(error) {
@@ -135,6 +146,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     function onOrderDestroySuccess(response) {
         getOrders($scope.ordersTabType);
         $scope.currentOrders = $scope.allOrders[$scope.ordersTabType];
+        $scope.currentOrder = {};
     }
 
     function onOrderDestroyError(error) {
