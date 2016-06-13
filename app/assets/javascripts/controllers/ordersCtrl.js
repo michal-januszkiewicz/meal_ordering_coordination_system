@@ -106,6 +106,16 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
             });
     }
 
+    function getMeals() {
+        $scope.currentOrder.meals = {};
+        Meal.index($scope.currentOrder.id)
+            .success(function(meals) {
+                meals.forEach(function(meal) {
+                    $scope.currentOrder.meals[meal.id] = meal;
+                });
+            });
+    }
+
     function onOrderCreateSuccess(order) {
         $scope.currentOrders[order.data.id] = order.data;
     }

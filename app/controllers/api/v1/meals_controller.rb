@@ -1,5 +1,14 @@
 class Api::V1::MealsController < Api::V1::BaseController
-  
+
+  def index
+    order = Order.find(params[:order_id])
+    meals = order.meals
+    meals = meals.map do |meal|
+      ::V1::MealRepresenter.new(meal).basic
+    end
+    render json: meals, status: 200
+  end
+
   def create
     order_id = params[:order_id]
     meal = Order.find(order_id).meals.build(meal_params)

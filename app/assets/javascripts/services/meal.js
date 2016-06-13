@@ -1,6 +1,10 @@
 angular.module('orderingSystem').service('Meal', function($http) {
     var api_endpoint = '/api/v1/orders/';
     
+    this.index = function(order_id) {
+        return $http.get(api_endpoint + order_id + '/meals');
+    };
+    
     this.create = function(order_id, params) {
         return $http.post(api_endpoint + order_id + '/meals', params);
     };
