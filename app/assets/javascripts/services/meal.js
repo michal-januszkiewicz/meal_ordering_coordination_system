@@ -6,6 +6,6 @@ angular.module('orderingSystem').service('Meal', function($http) {
     };
     
     this.update = function(order_id, id, params) {
-        return $http.put(api_endpoint + order_id + '/meals/' + id, params)
+        return $http.put(api_endpoint + order_id + '/meals/' + id, params);
     };
 });
