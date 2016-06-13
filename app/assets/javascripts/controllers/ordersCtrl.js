@@ -11,8 +11,10 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     $scope.newOrder = {
         restaurant: '',
     };
+    $scope.currentMeal = {};
     $scope.currentOrder = '';
     $scope.editOrderClicked = false;
+    $scope.editMealClicked = false;
     
     getUsers();
     getOrders('active');
@@ -41,6 +43,22 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
 
     $scope.showAddMealOption = function() {
         return $scope.currentOrder.status == 'in progress' && $scope.currentOrder != '';
+    };
+
+    $scope.toggleMealEditForm = function(meal) {
+        $scope.editMealClicked = !$scope.editMealClicked;
+        if ($scope.editMealClicked) {
+            $scope.currentMeal = meal;
+        }
+    };
+    
+    $scope.showMealEditForm = function(meal) {
+      return meal.id == $scope.currentMeal.id && $scope.editMealClicked  
+    };
+    
+    $scope.editMeal = function(meal_id) {
+        Meal.update($scope.currentOrder.id, meal_id, $scope.currentMeal).then(onMealEditSuccess, onMealEditError);
+        $scope.editMealClicked = false;
     };
 
     $scope.showAddOrderOption = function() {
@@ -119,6 +137,14 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     }
 
     function onMealCreateError(error) {
+        // Display error.
+    }
+    
+    function onMealEditSuccess(meal) {
+        $scope.currentOrder.meals[meal.data.id] = meal.data;
+    }
+
+    function onMealEditError(error) {
         // Display error.
     }
 });

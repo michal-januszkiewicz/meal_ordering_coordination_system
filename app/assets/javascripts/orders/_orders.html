@@ -52,8 +52,18 @@
             <tbody>
             <tr ng-repeat="meal in currentOrder.meals">
                 <td>{{ users[meal.user_id].name }}</td>
-                <td>{{ meal.name }}</td>
-                <td>{{ meal.price }}</td>
+                <td ng-hide="showMealEditForm(meal)">{{ meal.name }}</td>
+                <td ng-hide="showMealEditForm(meal)">{{ meal.price }}</td>
+                <form ng-submit="editMeal()" ng-if="meal.id == currentMeal.id && editMealClicked">
+                    <td ng-if="showMealEditForm(meal)"><input ng-model="currentMeal.name" placeholder="meal"></td>
+                    <td ng-if="showMealEditForm(meal)"><input ng-model="currentMeal.price" placeholder="price"></td>
+                </form>
+                <td>
+                    <div ng-hide="editMealClicked" ng-click="toggleMealEditForm(meal)" class="btn btn-primary btn-xs">edit</div>
+                    <div ng-hide="editMealClicked" ng-click="deleteMeal()" class="btn btn-primary btn-xs">delete</div>
+                    <div ng-show="showMealEditForm(meal)" ng-click="editMeal(meal.id)" class="btn btn-primary btn-xs">save</div>
+                    <div ng-show="showMealEditForm(meal)" ng-click="toggleMealEditForm(meal)" class="btn btn-primary btn-xs">cancel</div>
+                </td>
             </tr>
             </tbody>
         </table>
