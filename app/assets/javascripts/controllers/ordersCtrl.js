@@ -80,9 +80,16 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     }
     
     function onOrderEditSuccess(order) {
-        $scope.currentOrders[order.data.id] = order.data;
-        $scope.currentOrder = order.data;
-        $scope.getMeals();
+        if (order.data.status != 'finalized' && $scope.ordersTabType == 'active'
+            || order.data.status == 'finalized' && $scope.ordersTabType == 'history') {
+            $scope.currentOrders[order.data.id] = order.data;
+            $scope.currentOrder = order.data;
+            $scope.getMeals();
+        }
+        else {
+            delete $scope.currentOrders[order.data.id];
+            $scope.setDefaultOrder();
+        }
     }
 
     function onOrderEditError(error) {
