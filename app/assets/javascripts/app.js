@@ -4,7 +4,7 @@ var app = angular.module('orderingSystem', ['ui.router', 'templates'])
             .state('orders', {
                 url: '/orders',
                 templateUrl: 'orders/_orders.html',
-                controller: 'ordersCtrl',
+                controller: 'baseCtrl',
             })
             .state('login', {
                 url: '/login',

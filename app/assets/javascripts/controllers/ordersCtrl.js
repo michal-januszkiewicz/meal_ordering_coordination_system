@@ -1,31 +1,8 @@
-angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order, User, Meal) {
-    $scope.users = {};
-    $scope.allOrders = {
-        active: {},
-        history: {},
-    };
-    $scope.newMeal = {
-        name: '',
-        price: '',
-    };
-    $scope.newOrder = {
-        restaurant: '',
-    };
-    $scope.currentMeal = {};
-    $scope.currentOrder = {};
-    $scope.editOrderClicked = false;
-    $scope.editMealClicked = false;
-    
-    getUsers();
-    getOrders('active');
-
-
-    // Display active orders tab in the beginning.
-    $scope.ordersTabType = 'active';
+angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order, User) {
 
     // Toggle between active and history orders.
     $scope.toggleOrdersTabs = function(type) {
-        getOrders(type);
+        $scope.getOrders(type);
         $scope.ordersTabType = type;
         $scope.currentOrder = '';
     };
@@ -34,35 +11,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     $scope.changeCurrentOrder = function(orderID) {
         $scope.currentOrder = $scope.currentOrders[orderID];
         $scope.editOrderClicked = false;
-        getMeals();
-    };
-
-    $scope.addNewMeal = function() {
-        Meal.create($scope.currentOrder.id, $scope.newMeal).then(onMealCreateSuccess, onMealCreateError);
-    };
-
-    $scope.showAddMealForm = function() {
-        return $scope.currentOrder.status == 'in progress' && $scope.currentOrder != '';
-    };
-
-    $scope.toggleMealEditForm = function(meal) {
-        $scope.editMealClicked = !$scope.editMealClicked;
-        if ($scope.editMealClicked) {
-            $scope.currentMeal = meal;
-        }
-    };
-    
-    $scope.showMealEditForm = function(meal) {
-      return meal.id == $scope.currentMeal.id && $scope.editMealClicked  
-    };
-    
-    $scope.editMeal = function(meal_id) {
-        Meal.update($scope.currentOrder.id, meal_id, $scope.currentMeal).then(onMealEditSuccess, onMealEditError);
-        $scope.editMealClicked = false;
-    };
-    
-    $scope.destroyMeal = function(meal_id) {
-        Meal.destroy($scope.currentOrder.id, meal_id).then(onMealDestroySuccess, onMealDestroyError);
+        $scope.getMeals();
     };
 
     $scope.showAddOrderOption = function() {
@@ -94,16 +43,16 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         Order.destroy($scope.currentOrder.id).then(onOrderDestroySuccess, onOrderDestroyError);
     };
     
-    function getUsers() {
+    $scope.getUsers = function() {
         User.index()
             .success(function(users) {
                 users.forEach(function(user) {
                     $scope.users[user.id] = user;
                 });
             });
-    }
+    };
 
-    function getOrders(type) {
+    $scope.getOrders = function(type) {
         $scope.allOrders[type] = {};
         Order.index({type: type})
             .success(function(orders) {
@@ -111,26 +60,16 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
                     $scope.allOrders[type][order.id] = order;
                 });
                 $scope.currentOrders = $scope.allOrders[type];
-                setDefaultOrder();
+                $scope.setDefaultOrder();
             });
-    }
+    };
 
-    function getMeals() {
-        $scope.currentOrder.meals = {};
-        Meal.index($scope.currentOrder.id)
-            .success(function(meals) {
-                meals.forEach(function(meal) {
-                    $scope.currentOrder.meals[meal.id] = meal;
-                });
-            });
-    }
-
-    function setDefaultOrder() {
+    $scope.setDefaultOrder = function() {
         var key = Object.keys($scope.currentOrders)[0];
         if (key !== undefined) {
             $scope.changeCurrentOrder(key);
         }
-    }
+    };
 
     function onOrderCreateSuccess(order) {
         $scope.currentOrders[order.data.id] = order.data;
@@ -143,7 +82,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     function onOrderEditSuccess(order) {
         $scope.currentOrders[order.data.id] = order.data;
         $scope.currentOrder = order.data;
-        getMeals();
+        $scope.getMeals();
     }
 
     function onOrderEditError(error) {
@@ -151,36 +90,12 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     }
 
     function onOrderDestroySuccess(response) {
-        getOrders($scope.ordersTabType);
+        $scope.getOrders($scope.ordersTabType);
         $scope.currentOrders = $scope.allOrders[$scope.ordersTabType];
         $scope.currentOrder = {};
     }
 
     function onOrderDestroyError(error) {
-        // Display error.
-    }
-
-    function onMealCreateSuccess(meal) {
-        $scope.currentOrder.meals[meal.data.id] = meal.data;
-    }
-
-    function onMealCreateError(error) {
-        // Display error.
-    }
-    
-    function onMealEditSuccess(meal) {
-        $scope.currentOrder.meals[meal.data.id] = meal.data;
-    }
-
-    function onMealEditError(error) {
-        // Display error.
-    }
-
-    function onMealDestroySuccess(response) {
-        getMeals();
-    }
-
-    function onMealDestroyError(error) {
         // Display error.
     }
 });
