@@ -10,7 +10,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
                 $scope.setDefaultOrder();
             })
             .error(function(error) {
-                // Display error
+                $scope.displayError(error);
             })
     };
 
@@ -21,7 +21,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
                 $scope.currentOrders[order.id] = order;
             })
             .error(function(error) {
-                // Display error
+                $scope.displayError(error);
             })
     };
 
@@ -41,7 +41,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
                 }
             })
             .error(function(error) {
-                // Display error
+                $scope.displayError(error);
             })
     };
 
@@ -52,7 +52,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
                 $scope.currentOrder = {};
             })
             .error(function(error) {
-                // Display error
+                $scope.displayError(error);
             })
     };
     

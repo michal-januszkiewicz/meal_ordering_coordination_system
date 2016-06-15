@@ -6,7 +6,10 @@ angular.module('orderingSystem').controller('usersCtrl', function($scope, User) 
                 users.forEach(function(user) {
                     $scope.users[user.id] = user;
                 });
-            });
+            })
+            .error(function(error) {
+                $scope.displayError(error);
+            })
     };
 
 });

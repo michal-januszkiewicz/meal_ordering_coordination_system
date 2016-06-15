@@ -10,6 +10,9 @@ angular.module('orderingSystem').controller('baseCtrl', function($scope, $contro
     $scope.currentOrder = {};
     $scope.editOrderClicked = false;
     $scope.editMealClicked = false;
+    
+    $scope.error = '';
+    $scope.showError = false;
 
     $scope.getUsers();
     $scope.getOrders('active');
@@ -18,5 +21,10 @@ angular.module('orderingSystem').controller('baseCtrl', function($scope, $contro
 
     // Display active orders tab in the beginning.
     $scope.ordersTabType = 'active';
+
+    $scope.displayError = function(error) {
+        $scope.error = error;
+        $scope.showError = true;
+    };
 });
 

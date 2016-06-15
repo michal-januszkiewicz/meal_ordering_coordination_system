@@ -7,7 +7,10 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
                 meals.forEach(function(meal) {
                     $scope.currentOrder.meals[meal.id] = meal;
                 });
-            });
+            })
+            .error(function(error) {
+                $scope.displayError(error);
+            })
     };
     
     $scope.addNewMeal = function() {
@@ -17,7 +20,7 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
                 $scope.currentOrder.meals[meal.id] = meal;
             })
             .error(function(error) {
-                // Display error
+                $scope.displayError(error);
             })
     };
     
@@ -28,7 +31,7 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
                 $scope.editMealClicked = false;
             })
             .error(function(error) {
-                // Display error
+                $scope.displayError(error);
             })
     };
 
@@ -38,7 +41,7 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
                 delete $scope.currentOrder.meals[meal_id];
             })
             .error(function(error) {
-                // Display error
+                $scope.displayError(error);
             })
     };
     
