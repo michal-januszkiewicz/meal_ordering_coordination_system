@@ -6,9 +6,9 @@
                 <input ng-model="newOrder.restaurant" placeholder="restaurant">
                 <input type="submit" value="Add order">
             </form>
-            <div ng-if="ordersTabType == 'active'">
+            <div ng-show="ordersTabType == 'active'">
                 Status filter
-                <select ng-model="showStatus" name="status filter">
+                <select ng-model="showStatus" name="filter-status">
                     <option value="">none</option>
                     <option value="in progress">in progress</option>
                     <option value="ordered">ordered</option>
