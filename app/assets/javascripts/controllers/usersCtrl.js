@@ -1,4 +1,4 @@
-angular.module('orderingSystem').controller('ordersCtrl', function($scope, User) {
+angular.module('orderingSystem').controller('usersCtrl', function($scope, User) {
 
     $scope.getUsers = function() {
         User.index()
