@@ -34,7 +34,7 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
     $scope.destroyMeal = function(meal_id) {
         Meal.destroy($scope.currentOrder.id, meal_id)
             .success(function() {
-                $scope.getMeals();
+                delete $scope.currentOrder.meals[meal_id];
             })
             .error(function(error) {
                 // Display error

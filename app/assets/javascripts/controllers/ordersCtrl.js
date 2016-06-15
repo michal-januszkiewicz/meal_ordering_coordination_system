@@ -47,7 +47,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     $scope.destroyOrder = function() {
         Order.destroy($scope.currentOrder.id)
             .success(function() {
-                $scope.getOrders($scope.ordersTabType);
+                delete $scope.currentOrders[$scope.currentOrder.id]
                 $scope.currentOrder = {};
             })
             .error(function(error) {
