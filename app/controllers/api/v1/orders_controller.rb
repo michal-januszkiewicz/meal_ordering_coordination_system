@@ -9,26 +9,41 @@ class Api::V1::OrdersController < Api::V1::BaseController
         active: active,
         history: history,
     }
-    render json: orders[index_params[:type].to_sym]
+    render json: orders[index_params[:type].to_sym], status: 200
   end
 
   def create
     order = current_user.orders.build(order_params)
     order.status = 'in progress'
-    order.save!
-    render json: ::V1::OrderRepresenter.new(order).basic, status: 201
+    if order.save!
+      render json: ::V1::OrderRepresenter.new(order).basic, status: 201
+    else
+      render json: {
+          msg: 'Create order failed'
+      }, status: 500
+    end
   end
 
   def update
     order = Order.find(params[:id])
-    order.update_attributes(update_params)
-    render json: ::V1::OrderRepresenter.new(order).basic, status: 200
+    if order.update_attributes(update_params)
+      render json: ::V1::OrderRepresenter.new(order).basic, status: 200
+    else
+      render json: {
+          msg: 'Update order failed'
+      }, status: 500
+    end
   end
 
   def destroy
     order = Order.find(params[:id])
-    order.destroy!
-    render json: { status: 200 }
+    if order.destroy!
+      render json: {}, status: 200
+    else
+      render json: {
+          msg: 'Destroy order failed'
+      }, status: 500
+    end
   end
 
 

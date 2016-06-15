@@ -23,7 +23,7 @@ angular.module('orderingSystem').controller('baseCtrl', function($scope, $contro
     $scope.ordersTabType = 'active';
 
     $scope.displayError = function(error) {
-        $scope.error = error;
+        $scope.error = error.msg;
         $scope.showError = true;
     };
 });
