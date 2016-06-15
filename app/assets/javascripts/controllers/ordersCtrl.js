@@ -80,6 +80,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     }
     
     function onOrderEditSuccess(order) {
+        $scope.editOrderClicked = false;
         if (order.data.status != 'finalized' && $scope.ordersTabType == 'active'
             || order.data.status == 'finalized' && $scope.ordersTabType == 'history') {
             $scope.currentOrders[order.data.id] = order.data;
