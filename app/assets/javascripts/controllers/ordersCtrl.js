@@ -5,6 +5,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         $scope.getOrders(type);
         $scope.ordersTabType = type;
         $scope.currentOrder = '';
+        $scope.showStatus = '';
     };
 
     // Display order chosen from the list.
