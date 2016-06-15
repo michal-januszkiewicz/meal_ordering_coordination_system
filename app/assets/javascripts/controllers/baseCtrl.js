@@ -21,6 +21,7 @@ angular.module('orderingSystem').controller('baseCtrl', function($scope, $contro
 
     $scope.getUsers();
     $scope.getOrders('active');
+    $scope.showStatus = '';
 
 
     // Display active orders tab in the beginning.

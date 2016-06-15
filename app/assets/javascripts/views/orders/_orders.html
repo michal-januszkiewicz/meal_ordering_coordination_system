@@ -6,6 +6,15 @@
                 <input ng-model="newOrder.restaurant" placeholder="restaurant">
                 <input type="submit" value="Add order">
             </form>
+            <div ng-if="ordersTabType == 'active'">
+                Status filter
+                <select ng-model="showStatus" name="status filter">
+                    <option value="">none</option>
+                    <option value="in progress">in progress</option>
+                    <option value="ordered">ordered</option>
+                    <option value="delivered">delivered</option>
+                </select>
+            </div>
             <ul class="nav nav-tabs" role="tablist">
                 <li ng-click="toggleOrdersTabs('active')" ng-class="{'active': ordersTabType == 'active'}"><a href="#">Active</a></li>
                 <li ng-click="toggleOrdersTabs('history')" ng-class="{'active': ordersTabType == 'history'}"><a href="#">History</a></li>
@@ -14,7 +23,7 @@
         <div class="row">
             <div class="list-group orders-list">
                 <div>
-                    <a href="#" ng-repeat="(order_id, order) in currentOrders" ng-click="changeCurrentOrder(order_id)"
+                    <a href="#" ng-repeat="(order_id, order) in currentOrders | statusFilter:this.showStatus" ng-click="changeCurrentOrder(order_id)"
                        ng-class="{'active':  currentOrder == order}" class="list-group-item order-item">
                         {{ order.restaurant }} - {{ order.status }}
                     </a>
