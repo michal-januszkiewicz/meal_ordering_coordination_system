@@ -8,19 +8,51 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
                     $scope.currentOrders[order.id] = order;
                 });
                 $scope.setDefaultOrder();
-            });
+            })
+            .error(function(error) {
+                // Display error
+            })
     };
-    
+
     $scope.addNewOrder = function() {
-        Order.create($scope.newOrder).then(onOrderCreateSuccess, onOrderCreateError);
+        Order.create($scope.newOrder)
+            .success(function(order) {
+                $scope.currentOrders[order.id] = order;
+            })
+            .error(function(error) {
+                // Display error
+            })
     };
-    
+
     $scope.editOrder = function() {
-        Order.update($scope.currentOrderEdit).then(onOrderEditSuccess, onOrderEditError);
+        Order.update($scope.currentOrderEdit)
+            .success(function(order) {
+                $scope.editOrderClicked = false;
+                if (order.status != 'finalized' && $scope.ordersTabType == 'active'
+                    || order.status == 'finalized' && $scope.ordersTabType == 'history') {
+                    $scope.currentOrders[order.id] = order;
+                    $scope.currentOrder = order;
+                    $scope.getMeals();
+                }
+                else {
+                    delete $scope.currentOrders[order.id];
+                    $scope.setDefaultOrder();
+                }
+            })
+            .error(function(error) {
+                // Display error
+            })
     };
 
     $scope.destroyOrder = function() {
-        Order.destroy($scope.currentOrder.id).then(onOrderDestroySuccess, onOrderDestroyError);
+        Order.destroy($scope.currentOrder.id)
+            .success(function() {
+                $scope.getOrders($scope.ordersTabType);
+                $scope.currentOrder = {};
+            })
+            .error(function(error) {
+                // Display error
+            })
     };
     
     $scope.setDefaultOrder = function() {
@@ -61,38 +93,4 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         }
     };
 
-    function onOrderCreateSuccess(order) {
-        $scope.currentOrders[order.data.id] = order.data;
-    }
-
-    function onOrderCreateError(error) {
-        // Display error.
-    }
-    
-    function onOrderEditSuccess(order) {
-        $scope.editOrderClicked = false;
-        if (order.data.status != 'finalized' && $scope.ordersTabType == 'active'
-            || order.data.status == 'finalized' && $scope.ordersTabType == 'history') {
-            $scope.currentOrders[order.data.id] = order.data;
-            $scope.currentOrder = order.data;
-            $scope.getMeals();
-        }
-        else {
-            delete $scope.currentOrders[order.data.id];
-            $scope.setDefaultOrder();
-        }
-    }
-
-    function onOrderEditError(error) {
-        // Display error.
-    }
-
-    function onOrderDestroySuccess(response) {
-        $scope.getOrders($scope.ordersTabType);
-        $scope.currentOrder = {};
-    }
-
-    function onOrderDestroyError(error) {
-        // Display error.
-    }
 });

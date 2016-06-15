@@ -11,16 +11,34 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
     };
     
     $scope.addNewMeal = function() {
-        Meal.create($scope.currentOrder.id, $scope.newMeal).then(onMealCreateSuccess, onMealCreateError);
+        Meal.create($scope.currentOrder.id, $scope.newMeal)
+            .success(function(meal) {
+                $scope.currentOrder.meals[meal.id] = meal;
+            })
+            .error(function(error) {
+                // Display error
+            })
     };
     
     $scope.editMeal = function(meal_id) {
-        Meal.update($scope.currentOrder.id, meal_id, $scope.currentMeal).then(onMealEditSuccess, onMealEditError);
-        $scope.editMealClicked = false;
+        Meal.update($scope.currentOrder.id, meal_id, $scope.currentMeal)
+            .success(function(meal) {
+                $scope.currentOrder.meals[meal.id] = meal;
+                $scope.editMealClicked = false;
+            })
+            .error(function(error) {
+                // Display error
+            })
     };
 
     $scope.destroyMeal = function(meal_id) {
-        Meal.destroy($scope.currentOrder.id, meal_id).then(onMealDestroySuccess, onMealDestroyError);
+        Meal.destroy($scope.currentOrder.id, meal_id)
+            .success(function() {
+                $scope.getMeals();
+            })
+            .error(function(error) {
+                // Display error
+            })
     };
     
     $scope.showAddMealForm = function() {
@@ -45,27 +63,4 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
         }
     };
 
-    function onMealCreateSuccess(meal) {
-        $scope.currentOrder.meals[meal.data.id] = meal.data;
-    }
-
-    function onMealCreateError(error) {
-        // Display error.
-    }
-
-    function onMealEditSuccess(meal) {
-        $scope.currentOrder.meals[meal.data.id] = meal.data;
-    }
-
-    function onMealEditError(error) {
-        // Display error.
-    }
-
-    function onMealDestroySuccess(response) {
-        $scope.getMeals();
-    }
-
-    function onMealDestroyError(error) {
-        // Display error.
-    }
 });
