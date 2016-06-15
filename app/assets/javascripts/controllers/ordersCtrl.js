@@ -1,4 +1,4 @@
-angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order, User) {
+angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order) {
 
     // Toggle between active and history orders.
     $scope.toggleOrdersTabs = function(type) {
@@ -43,15 +43,6 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         Order.destroy($scope.currentOrder.id).then(onOrderDestroySuccess, onOrderDestroyError);
     };
     
-    $scope.getUsers = function() {
-        User.index()
-            .success(function(users) {
-                users.forEach(function(user) {
-                    $scope.users[user.id] = user;
-                });
-            });
-    };
-
     $scope.getOrders = function(type) {
         $scope.currentOrders = {};
         Order.index({type: type})

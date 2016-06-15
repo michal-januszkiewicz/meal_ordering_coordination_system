@@ -1,6 +1,7 @@
 angular.module('orderingSystem').controller('baseCtrl', function($scope, $controller) {
     angular.extend(this, $controller('ordersCtrl', {$scope: $scope}));
     angular.extend(this, $controller('mealsCtrl', {$scope: $scope}));
+    angular.extend(this, $controller('usersCtrl', {$scope: $scope}));
     
     $scope.users = {};
     $scope.newMeal = {
