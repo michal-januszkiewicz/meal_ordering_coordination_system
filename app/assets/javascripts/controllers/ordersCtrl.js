@@ -49,7 +49,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         Order.destroy($scope.currentOrder.id)
             .success(function() {
                 delete $scope.currentOrders[$scope.currentOrder.id]
-                $scope.currentOrder = {};
+                $scope.setDefaultOrder();
             })
             .error(function(error) {
                 $scope.displayError(error);
