@@ -3,12 +3,12 @@ var app = angular.module('orderingSystem', ['ui.router', 'templates'])
         $stateProvider
             .state('orders', {
                 url: '/orders',
-                templateUrl: 'orders/_orders.html',
+                templateUrl: 'views/orders/_orders.html',
                 controller: 'baseCtrl',
             })
             .state('login', {
                 url: '/login',
-                templateUrl: 'login/_login.html',
+                templateUrl: 'views/login/_login.html',
                 controller: 'loginCtrl',
             });
 
