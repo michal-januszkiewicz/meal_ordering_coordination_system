@@ -74,15 +74,17 @@
                 <td>{{ users[meal.user_id].name }}</td>
                 <td ng-hide="showMealEditForm(meal)">{{ meal.name }}</td>
                 <td ng-hide="showMealEditForm(meal)">{{ meal.price }}</td>
-                <form ng-submit="editMeal()" ng-if="meal.id == currentMeal.id && editMealClicked">
-                    <td ng-if="showMealEditForm(meal)"><input ng-model="currentMeal.name" placeholder="meal"></td>
-                    <td ng-if="showMealEditForm(meal)"><input ng-model="currentMeal.price" placeholder="price"></td>
-                </form>
+                <td ng-show="showMealEditForm(meal)"><input ng-model="currentMeal.name" placeholder="meal"></td>
+                <td ng-show="showMealEditForm(meal)"><input ng-model="currentMeal.price" placeholder="price"></td>
                 <td>
-                    <div ng-hide="editMealClicked" ng-click="toggleMealEditForm(meal)" class="btn btn-primary btn-xs">edit</div>
-                    <div ng-hide="editMealClicked" ng-click="destroyMeal(meal.id)" class="btn btn-primary btn-xs">delete</div>
-                    <div ng-show="showMealEditForm(meal)" ng-click="editMeal(meal.id)" class="btn btn-primary btn-xs">save</div>
-                    <div ng-show="showMealEditForm(meal)" ng-click="toggleMealEditForm(meal)" class="btn btn-primary btn-xs">cancel</div>
+                    <div ng-hide="editMealClicked">
+                        <div ng-click="toggleMealEditForm(meal)" class="btn btn-primary btn-xs">edit</div>
+                        <div ng-click="destroyMeal(meal.id)" class="btn btn-primary btn-xs">delete</div>
+                    </div>
+                    <div ng-show="showMealEditForm(meal)">
+                        <div ng-click="editMeal(meal.id)" class="btn btn-primary btn-xs">save</div>
+                        <div ng-click="toggleMealEditForm(meal)" class="btn btn-primary btn-xs">cancel</div>
+                    </div>
                 </td>
             </tr>
             </tbody>
