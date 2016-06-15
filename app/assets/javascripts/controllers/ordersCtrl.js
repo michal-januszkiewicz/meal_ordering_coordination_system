@@ -1,5 +1,35 @@
 angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order) {
 
+    $scope.getOrders = function(type) {
+        $scope.currentOrders = {};
+        Order.index({type: type})
+            .success(function(orders) {
+                orders.forEach(function(order) {
+                    $scope.currentOrders[order.id] = order;
+                });
+                $scope.setDefaultOrder();
+            });
+    };
+    
+    $scope.addNewOrder = function() {
+        Order.create($scope.newOrder).then(onOrderCreateSuccess, onOrderCreateError);
+    };
+    
+    $scope.editOrder = function() {
+        Order.update($scope.currentOrderEdit).then(onOrderEditSuccess, onOrderEditError);
+    };
+
+    $scope.destroyOrder = function() {
+        Order.destroy($scope.currentOrder.id).then(onOrderDestroySuccess, onOrderDestroyError);
+    };
+    
+    $scope.setDefaultOrder = function() {
+        var key = Object.keys($scope.currentOrders)[0];
+        if (key !== undefined) {
+            $scope.changeCurrentOrder(key);
+        }
+    };
+
     // Toggle between active and history orders.
     $scope.toggleOrdersTabs = function(type) {
         $scope.getOrders(type);
@@ -18,10 +48,6 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         return $scope.ordersTabType === 'active';
     };
 
-    $scope.addNewOrder = function() {
-        Order.create($scope.newOrder).then(onOrderCreateSuccess, onOrderCreateError);
-    };
-    
     $scope.toggleEditOrderForm = function() {
         $scope.editOrderClicked = !$scope.editOrderClicked;
         if ($scope.editOrderClicked) {
@@ -32,32 +58,6 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
                 status: $scope.currentOrder.status,
                 user_id: $scope.currentOrder.user_id,
             }
-        }
-    };
-
-    $scope.editOrder = function() {
-        Order.update($scope.currentOrderEdit).then(onOrderEditSuccess, onOrderEditError);
-    };
-
-    $scope.destroyOrder = function() {
-        Order.destroy($scope.currentOrder.id).then(onOrderDestroySuccess, onOrderDestroyError);
-    };
-    
-    $scope.getOrders = function(type) {
-        $scope.currentOrders = {};
-        Order.index({type: type})
-            .success(function(orders) {
-                orders.forEach(function(order) {
-                    $scope.currentOrders[order.id] = order;
-                });
-                $scope.setDefaultOrder();
-            });
-    };
-
-    $scope.setDefaultOrder = function() {
-        var key = Object.keys($scope.currentOrders)[0];
-        if (key !== undefined) {
-            $scope.changeCurrentOrder(key);
         }
     };
 

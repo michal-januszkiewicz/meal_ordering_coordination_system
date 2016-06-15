@@ -13,9 +13,22 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
     $scope.addNewMeal = function() {
         Meal.create($scope.currentOrder.id, $scope.newMeal).then(onMealCreateSuccess, onMealCreateError);
     };
+    
+    $scope.editMeal = function(meal_id) {
+        Meal.update($scope.currentOrder.id, meal_id, $scope.currentMeal).then(onMealEditSuccess, onMealEditError);
+        $scope.editMealClicked = false;
+    };
 
+    $scope.destroyMeal = function(meal_id) {
+        Meal.destroy($scope.currentOrder.id, meal_id).then(onMealDestroySuccess, onMealDestroyError);
+    };
+    
     $scope.showAddMealForm = function() {
         return $scope.currentOrder.status == 'in progress' && $scope.currentOrder != '';
+    };
+    
+    $scope.showMealEditForm = function(meal) {
+        return meal.id == $scope.currentMeal.id && $scope.editMealClicked
     };
 
     $scope.toggleMealEditForm = function(meal) {
@@ -32,19 +45,6 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
         }
     };
 
-    $scope.showMealEditForm = function(meal) {
-        return meal.id == $scope.currentMeal.id && $scope.editMealClicked
-    };
-
-    $scope.editMeal = function(meal_id) {
-        Meal.update($scope.currentOrder.id, meal_id, $scope.currentMeal).then(onMealEditSuccess, onMealEditError);
-        $scope.editMealClicked = false;
-    };
-
-    $scope.destroyMeal = function(meal_id) {
-        Meal.destroy($scope.currentOrder.id, meal_id).then(onMealDestroySuccess, onMealDestroyError);
-    };
-    
     function onMealCreateSuccess(meal) {
         $scope.currentOrder.meals[meal.data.id] = meal.data;
     }
