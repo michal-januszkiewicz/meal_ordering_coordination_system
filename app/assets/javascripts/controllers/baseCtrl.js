@@ -3,10 +3,6 @@ angular.module('orderingSystem').controller('baseCtrl', function($scope, $contro
     angular.extend(this, $controller('mealsCtrl', {$scope: $scope}));
     
     $scope.users = {};
-    $scope.allOrders = {
-        active: {},
-        history: {},
-    };
     $scope.newMeal = {
         name: '',
         price: '',

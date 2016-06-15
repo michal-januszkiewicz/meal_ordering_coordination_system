@@ -4,7 +4,6 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     $scope.toggleOrdersTabs = function(type) {
         $scope.getOrders(type);
         $scope.ordersTabType = type;
-        $scope.currentOrder = '';
         $scope.showStatus = '';
     };
 
@@ -15,8 +14,8 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
         $scope.getMeals();
     };
 
-    $scope.showAddOrderOption = function() {
-        return $scope.ordersTabType == 'active';
+    $scope.showAddOrderForm = function() {
+        return $scope.ordersTabType === 'active';
     };
 
     $scope.addNewOrder = function() {
@@ -54,13 +53,12 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     };
 
     $scope.getOrders = function(type) {
-        $scope.allOrders[type] = {};
+        $scope.currentOrders = {};
         Order.index({type: type})
             .success(function(orders) {
                 orders.forEach(function(order) {
-                    $scope.allOrders[type][order.id] = order;
+                    $scope.currentOrders[order.id] = order;
                 });
-                $scope.currentOrders = $scope.allOrders[type];
                 $scope.setDefaultOrder();
             });
     };
@@ -100,7 +98,6 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
 
     function onOrderDestroySuccess(response) {
         $scope.getOrders($scope.ordersTabType);
-        $scope.currentOrders = $scope.allOrders[$scope.ordersTabType];
         $scope.currentOrder = {};
     }
 

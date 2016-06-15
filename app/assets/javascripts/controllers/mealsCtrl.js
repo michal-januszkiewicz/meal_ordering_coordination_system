@@ -21,7 +21,14 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
     $scope.toggleMealEditForm = function(meal) {
         $scope.editMealClicked = !$scope.editMealClicked;
         if ($scope.editMealClicked) {
-            $scope.currentMeal = meal;
+            // Clone meal to use a clone for editing.
+            $scope.currentMeal = {
+                id: meal.id,
+                name: meal.name,
+                price: meal.price,
+                user_id: meal.user_id,
+                order_id: meal.order_id,
+            };
         }
     };
 
