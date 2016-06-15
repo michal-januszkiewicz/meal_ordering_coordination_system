@@ -67,7 +67,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     $scope.toggleOrdersTabs = function(type) {
         $scope.getOrders(type);
         $scope.ordersTabType = type;
-        $scope.showStatus = '';
+        $scope.statusFilter = '';
     };
 
     // Display order chosen from the list.

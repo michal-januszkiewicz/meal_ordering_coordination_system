@@ -11,7 +11,7 @@
             </form>
             <div ng-show="ordersTabType == 'active'">
                 Status filter
-                <select ng-model="showStatus" name="filter-status">
+                <select ng-model="statusFilter" name="filter-status">
                     <option value="">none</option>
                     <option value="in progress">in progress</option>
                     <option value="ordered">ordered</option>
@@ -26,7 +26,7 @@
         <div class="row">
             <div class="list-group orders-list">
                 <div>
-                    <a href="#" ng-repeat="(order_id, order) in currentOrders | statusFilter:this.showStatus" ng-click="changeCurrentOrder(order_id)"
+                    <a href="#" ng-repeat="(order_id, order) in currentOrders | statusFilter:this.statusFilter" ng-click="changeCurrentOrder(order_id)"
                        ng-class="{'active':  currentOrder == order}" class="list-group-item order-item">
                         {{ order.restaurant }} - {{ order.status }}
                     </a>
