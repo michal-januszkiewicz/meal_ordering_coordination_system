@@ -4,13 +4,8 @@ angular.module('orderingSystem').controller('baseCtrl', function($scope, $contro
     angular.extend(this, $controller('usersCtrl', {$scope: $scope}));
     
     $scope.users = {};
-    $scope.newMeal = {
-        name: '',
-        price: '',
-    };
-    $scope.newOrder = {
-        restaurant: '',
-    };
+    $scope.newMeal = {};
+    $scope.newOrder = {};
     $scope.currentMeal = {};
     $scope.currentOrder = {};
     $scope.editOrderClicked = false;

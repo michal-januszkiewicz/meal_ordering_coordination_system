@@ -17,6 +17,7 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
     $scope.addNewOrder = function() {
         Order.create($scope.newOrder)
             .success(function(order) {
+                $scope.newOrder = {};
                 $scope.currentOrders[order.id] = order;
             })
             .error(function(error) {

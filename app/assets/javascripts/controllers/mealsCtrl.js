@@ -13,6 +13,7 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
     $scope.addNewMeal = function() {
         Meal.create($scope.currentOrder.id, $scope.newMeal)
             .success(function(meal) {
+                $scope.newMeal = {};
                 $scope.currentOrder.meals[meal.id] = meal;
             })
             .error(function(error) {
