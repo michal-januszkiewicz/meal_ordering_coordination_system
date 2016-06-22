@@ -80,4 +80,13 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
         }
     };
 
+    // Count total price of all order's meals.
+    $scope.countTotal = function(meals) {
+        var total = 0;
+        for (var meal in meals) {
+            total += meals[meal].price;
+        }
+        return total
+    }
+
 });
