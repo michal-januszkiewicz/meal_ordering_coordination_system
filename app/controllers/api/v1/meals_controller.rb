@@ -13,12 +13,16 @@ class Api::V1::MealsController < Api::V1::BaseController
     order_id = params[:order_id]
     meal = Order.find(order_id).meals.build(meal_params)
     meal.user_id = current_user.id
-    if meal.save!
-      render json: ::V1::MealRepresenter.new(meal).basic, status: 201
-    else
-      render json: {
-          msg: 'Create meal failed'
-      }, status: 500
+    begin
+      if meal.save!
+        render json: ::V1::MealRepresenter.new(meal).basic, status: 201
+      else
+        render json: {
+            msg: 'Create meal failed'
+        }, status: 500
+      end
+    rescue => error
+      render json: { msg: error.message }, status: 403
     end
   end
 
