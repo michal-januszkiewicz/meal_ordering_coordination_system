@@ -89,7 +89,7 @@
                 <td ng-show="showMealEditForm(meal)"><input ng-model="currentMeal.name" placeholder="meal"></td>
                 <td ng-show="showMealEditForm(meal)"><input ng-model="currentMeal.price" placeholder="price"></td>
                 <td>
-                    <div ng-hide="editMealClicked">
+                    <div ng-hide="editMealClicked || meal.user_id != currentUser">
                         <div ng-click="toggleMealEditForm(meal)" class="btn btn-primary btn-xs">edit</div>
                         <div ng-click="destroyMeal(meal.id)" class="btn btn-primary btn-xs">delete</div>
                     </div>

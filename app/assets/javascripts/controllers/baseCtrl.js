@@ -11,7 +11,8 @@ angular.module('orderingSystem').controller('baseCtrl', function($scope, $contro
     $scope.newOrder = {};
     $scope.currentMeal = {};
     $scope.currentOrder = {};
-    
+    $scope.currentUser = -1;
+
     // Hide edit forms.
     $scope.editOrderClicked = false;
     $scope.editMealClicked = false;
@@ -31,6 +32,9 @@ angular.module('orderingSystem').controller('baseCtrl', function($scope, $contro
             
             // Put api key in a cookie.
             $cookies.put('api_key', session.api_key);
+
+            //Set current user id.
+            $scope.currentUser = session.id;
 
             // Set new api key for all services.
             User.setApiKey();
