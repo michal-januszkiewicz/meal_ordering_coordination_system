@@ -3,19 +3,30 @@
 <head>
   <title>MealOrderingCoordinationSystem</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-cookies.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body ng-app="orderingSystem">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">Meal Ordering Coordination System</a>
+    </div>
+    <div class="col-md-offset-10">
+      <ul class="nav navbar-nav">
+        <% if current_user %>
+            <li><%= link_to "Sign out", signout_path, id: "sign_out" %></li>
+        <% else %>
+            <li><%= link_to "Sign in with facebook", "/auth/facebook" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
 <div class="container">
-  <% if current_user %>
-      Welcome <%= current_user.name %>!
-      <%= link_to "Sign Out", signout_path %>
-  <% else %>
-      <%= link_to "Sign in with facebook", "/auth/facebook" %>
-  <% end %>
   <ui-view></ui-view>
 </div>
 </body>
