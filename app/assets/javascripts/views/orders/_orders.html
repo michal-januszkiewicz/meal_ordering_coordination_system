@@ -19,14 +19,14 @@
                 </select>
             </div>
             <ul class="nav nav-tabs" role="tablist">
-                <li ng-click="toggleOrdersTabs('active')" ng-class="{'active': ordersTabType == 'active'}"><a href="#">Active</a></li>
-                <li ng-click="toggleOrdersTabs('history')" ng-class="{'active': ordersTabType == 'history'}"><a href="#">History</a></li>
+                <li ng-click="toggleOrdersTabs('active')" ng-class="{'active': ordersTabType == 'active'}"><a href="">Active</a></li>
+                <li ng-click="toggleOrdersTabs('history')" ng-class="{'active': ordersTabType == 'history'}"><a href="">History</a></li>
             </ul>
         </div>
         <div class="row">
             <div class="list-group orders-list">
                 <div>
-                    <a href="#" ng-repeat="(order_id, order) in currentOrders | statusFilter:this.statusFilter" ng-click="changeCurrentOrder(order_id)"
+                    <a href="" ng-repeat="(order_id, order) in currentOrders | statusFilter:this.statusFilter" ng-click="changeCurrentOrder(order_id)"
                        ng-class="{'active':  currentOrder == order}" class="list-group-item order-item">
                         {{ order.restaurant }} - {{ order.status }}
                     </a>
