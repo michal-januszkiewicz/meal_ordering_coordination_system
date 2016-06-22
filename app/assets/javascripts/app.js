@@ -1,4 +1,4 @@
-var app = angular.module('orderingSystem', ['ui.router', 'templates'])
+var app = angular.module('orderingSystem', ['ui.router', 'templates', 'ngCookies'])
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('orders', {
@@ -12,6 +12,6 @@ var app = angular.module('orderingSystem', ['ui.router', 'templates'])
                 controller: 'loginCtrl',
             });
 
-        $urlRouterProvider.otherwise('orders');
+        $urlRouterProvider.otherwise('login');
     });
 
