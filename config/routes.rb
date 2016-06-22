@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :auth_tokens, only: [:create]
       resources :users, only: [:index]
       resources :orders, only: [:index, :create, :update, :destroy] do
         resources :meals, only: [:index, :create, :update, :destroy]
