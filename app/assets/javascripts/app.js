@@ -6,12 +6,12 @@ var app = angular.module('orderingSystem', ['ui.router', 'templates', 'ngCookies
                 templateUrl: 'views/orders/_orders.html',
                 controller: 'baseCtrl',
             })
-            .state('login', {
-                url: '/login',
-                templateUrl: 'views/login/_login.html',
-                controller: 'loginCtrl',
+            .state('home', {
+                url: '/home',
+                templateUrl: 'views/home/_home.html',
+                controller: 'homeCtrl',
             });
 
-        $urlRouterProvider.otherwise('login');
+        $urlRouterProvider.otherwise('home');
     });
 
