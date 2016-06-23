@@ -8,7 +8,7 @@ RSpec.describe Api::V1::OrdersController, type: :request do
   let!(:order2) { Order.create(restaurant: 'restaurant2', status: 'ordered')}
   let!(:order3) { Order.create(restaurant: 'restaurant3', status: 'delivered')}
   let!(:order4) { Order.create(restaurant: 'restaurant4', status: 'finalized')}
-  let!(:api_endpoint) { '/api/v1/orders' }
+  let!(:api_endpoint) { '/api/v1/orders/' }
 
   describe 'GET /api/v1/orders - active' do
     before { get(api_endpoint,
@@ -70,7 +70,7 @@ RSpec.describe Api::V1::OrdersController, type: :request do
 
   describe 'PATCH /api/v1/orders' do
     before {
-      patch(api_endpoint + '/' + order1.id.to_s,
+      patch(api_endpoint + order1.id.to_s,
            order_params,
            { Authorization: "Token token=#{user1.auth_token}" })
     }
@@ -89,12 +89,10 @@ RSpec.describe Api::V1::OrdersController, type: :request do
 
   describe 'DELETE /api/v1/orders' do
     before {
-      delete(api_endpoint + '/' + order1.id.to_s,
+      delete(api_endpoint + order1.id.to_s,
             nil,
             { Authorization: "Token token=#{user1.auth_token}" })
     }
-
-    let!(:order_params) do { status: 'finalized' } end
 
     it 'works' do
       expect(response.status).to eq(200)
