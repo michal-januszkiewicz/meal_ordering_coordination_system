@@ -29,14 +29,18 @@ class Api::V1::MealsController < Api::V1::BaseController
   def update
     order = Order.find(params[:order_id])
     meal = order.meals.find(params[:id])
-    if current_user.id == meal.user_id
-      meal.update_attributes(meal_params)
-      render json: ::V1::MealRepresenter.new(meal).basic, status: 200
+    if current_user.id != meal.user_id
+      response = { msg: 'Unauthorized access. Only creator of a meal can edit it' }
+      status = 401
+    elsif order.status != 'in progress'
+      response = { msg: 'Meals in closed orders cannot be updated' }
+      status = 403
     else
-      render json: {
-          msg: 'Unauthorized access. Only creator of a meal can edit it'
-      }, status: 401
+      meal.update_attributes(meal_params)
+      response = ::V1::MealRepresenter.new(meal).basic
+      status = 200
     end
+    render json: response, status: status
   end
 
   def destroy
