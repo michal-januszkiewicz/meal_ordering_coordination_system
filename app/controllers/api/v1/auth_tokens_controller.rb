@@ -5,7 +5,7 @@ class Api::V1::AuthTokensController < Api::V1::BaseController
     if current_user
       current_user.set_api_key
       session = ::V1::SessionRepresenter.new(current_user).basic
-      render json: session
+      render json: session, status: 201
     else
       render json: {msg: 'There is no current user'}, status: 404
     end
