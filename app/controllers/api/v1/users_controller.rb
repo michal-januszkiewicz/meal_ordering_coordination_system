@@ -4,6 +4,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     users = users.map do |user|
       ::V1::UserRepresenter.new(user).basic
     end
-    render json: users
+    render json: users, status: 200
   end
 end
