@@ -55,7 +55,12 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
     
     // Show meals only for orders with status 'in progress'.
     $scope.showAddMealForm = function() {
-        return $scope.currentOrder.status == 'in progress' && $scope.currentOrder != '';
+        for (var meal in $scope.currentOrder.meals) {
+            if ($scope.currentOrder.meals[meal].user_id == $scope.currentUser) {
+                return false;
+            }
+        }
+        return $scope.currentOrder.status == 'in progress' && $scope.currentOrder != {};
     };
     
     // Show edit meal form only for clicked meal.
