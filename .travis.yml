@@ -3,6 +3,7 @@ rvm:
   - 2.2.3
 before_script:
   - cp config/database.travis.yml config/database.yml
-  - bundle exec rake db:create db:schema:load db:test:prepare
 script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
   - bundle exec rspec
