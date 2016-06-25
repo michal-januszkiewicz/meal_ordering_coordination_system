@@ -2,12 +2,20 @@
 
 [![Build Status](https://travis-ci.org/michal-januszkiewicz/meal_ordering_coordination_system.svg?branch=master)](https://travis-ci.org/michal-januszkiewicz/meal_ordering_coordination_system)
 
+## Heroku
+Skip the troublesome setup and check out the app on Heroku:
+<https://meal-ordering-system.herokuapp.com>
+
 ## Setup
 
 1. Create database
-    ```
-    rake db:schema:load
-    ```
+
+    1. Create a postgres db named as in database.yml or modify the file to use different db name or even change it to user sqlite if you wish.
+
+    2. Run
+        ```
+        rake db:schema:load
+        ```
 
 2. Seed the db (optional)
     ```
