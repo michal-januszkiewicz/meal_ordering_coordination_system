@@ -40,8 +40,8 @@ end
 
 Order.all.each do |order|
   rand(1..5).times do |i|
-    meal = meals[rand(1..10)]
-    meal['user_id'] = i +1
+    meal = meals[rand(0..9)]
+    meal['user_id'] = i + 1
     meal['order_id'] = order.id
     order.meals << Meal.create!(meal)
   end
