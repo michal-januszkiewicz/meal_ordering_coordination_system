@@ -2,14 +2,14 @@ require 'rails_helper'
 require 'helpers'
 
 RSpec.describe Api::V1::MealsController, type: :request do
-  let!(:user1)  { User.create(name: 'Jan Kowalski', auth_token: 'token1') }
-  let!(:user2)  { User.create(name: 'Jan Nowak', auth_token: 'token2') }
+  let!(:user1)  { User.create(id: 1, name: 'Jan Kowalski', auth_token: 'token1') }
+  let!(:user2)  { User.create(id: 2, name: 'Jan Nowak', auth_token: 'token2') }
   let!(:order1) { Order.create(restaurant: 'restaurant1', status: 'in progress')}
   let!(:order2) { Order.create(restaurant: 'restaurant2', status: 'ordered')}
   let!(:order3) { Order.create(restaurant: 'restaurant3', status: 'delivered')}
   let!(:order4) { Order.create(restaurant: 'restaurant4', status: 'finalized')}
-  let!(:meal1)  { Meal.create(name: 'meal1', price: 12.50, user_id: 1, order_id: 1)}
-  let!(:meal2)  { Meal.create(name: 'meal2', price: 10.50, user_id: 2, order_id: 1)}
+  let!(:meal1)  { order1.meals.create(name: 'meal1', price: 12.50, user_id: 1)}
+  let!(:meal2)  { order1.meals.create(name: 'meal2', price: 10.50, user_id: 2)}
   let!(:api_endpoint) { '/api/v1/orders/' }
 
   describe 'GET /api/v1/orders/:id/meals' do
