@@ -31,6 +31,11 @@ class Api::V1::OrdersController < Api::V1::BaseController
   def update
     order = Order.find(params[:id])
     if order.update_attributes(update_params)
+      if update_params[:status] == 'delivered'
+        order.meals.each do |meal|
+          UserMailer.meal_delivered_email(meal).deliver_now
+        end
+      end
       response = ::V1::OrderRepresenter.new(order).basic
       status = 200
     else
