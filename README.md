@@ -10,7 +10,7 @@ Skip the troublesome setup and check out the app on Heroku:
 
 1. Create database
 
-    1. Create a postgres db named as in database.yml or modify the file to use different db name or even change it to user sqlite if you wish.
+    1. Create a postgres db named as in database.yml or modify the file to use different db name or even change it to use sqlite if you wish.
 
     2. Run
         ```
