@@ -91,7 +91,7 @@ angular.module('orderingSystem').controller('mealsCtrl', function($scope, Meal) 
         for (var meal in meals) {
             total += meals[meal].price;
         }
-        return total
+        return total.toFixed(2);
     }
 
 });
