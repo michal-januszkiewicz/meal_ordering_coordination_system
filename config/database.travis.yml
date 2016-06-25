@@ -8,4 +8,4 @@ connection: &connection
 
 test: &test
   <<: *connection
-  database: workshops_test
+  database: ordering_system_test
