@@ -34,3 +34,9 @@ Skip the troublesome setup and check out the app on Heroku:
     ```
     rails s
     ```
+
+6. Setup email notifications (production only)
+    ```
+    export MAILER_USER_NAME="your_email_user_name"
+    export MAILER_PASSWORD="your_email_password"
+    ```
