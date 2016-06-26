@@ -26,6 +26,8 @@ angular.module('orderingSystem').controller('ordersCtrl', function($scope, Order
                 $scope.newOrder = {};
                 // Add new order to the currentOrders object.
                 $scope.currentOrders[order.id] = order;
+                // Set new order as active.
+                $scope.currentOrder = order;
             })
             .error(function(error) {
                 $scope.displayError(error);
