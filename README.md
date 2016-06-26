@@ -24,6 +24,8 @@ Skip the troublesome setup and check out the app on Heroku:
 
 3. Create an app on `developers.facebook.com`
 
+    Set the url of your app in settings. If you're running locally set to `localhost`
+
 4. Add env variables for facebook app:
     ```
     export CONSUMER_KEY="you_app_id"
